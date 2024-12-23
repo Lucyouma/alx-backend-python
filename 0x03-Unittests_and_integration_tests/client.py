@@ -34,9 +34,9 @@ class GithubOrgClient:
 
     @memoize
     def repos_payload(self) -> Dict:
-        """Memoize repos payload""" 
+        """Memoize repos payload"""
         return get_json(self._public_repos_url)
-    
+
     def public_repos(self, license: str = None) -> List[str]:
         """Public repos"""
         json_payload = self.repos_payload
@@ -46,14 +46,14 @@ class GithubOrgClient:
         ]
 
         return public_repos
-    
+
     @staticmethod
     def has_license(repo: Dict[str, Dict], license_key: str) -> bool:
         """Static: has_license"""
         assert license_key is not None, "license_key cannot be None"
         try:
             has_license = access_nested_map(
-                repo, 
+                repo,
                 ("license", "key"),
             ) == license_key
         except KeyError:
